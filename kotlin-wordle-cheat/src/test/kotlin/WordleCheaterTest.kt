@@ -1,3 +1,4 @@
+import com.cdpjenkins.wordlecheater.ALL_LETTERS
 import com.cdpjenkins.wordlecheater.WordleCheater
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
@@ -23,9 +24,19 @@ class WordleCheaterTest {
     }
 
     @Test
+    fun `eliminates all other letters once it has seen five letters`() {
+        cheater.oneRound("audio", "ybbyb")
+        cheater.oneRound("fever", "bbbbg")
+        cheater.oneRound("chalk", "gbybb")
+        cheater.oneRound("muggy", "bbgbb")
+
+        cheater.ruledOutLetters.toSet() shouldBe ALL_LETTERS.minus("acgir".toSet())
+    }
+
+    @Test
     fun `initially allows all letters`() {
         (0..4).forEach { position ->
-            allLetters().forEach { letter ->
+            ALL_LETTERS.forEach { letter ->
                 cheater.allowsLetterAtPosition(position, letter) shouldBe true
             }
         }

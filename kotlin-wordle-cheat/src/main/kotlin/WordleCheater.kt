@@ -33,23 +33,38 @@ class WordleCheater {
     fun yellowLetter(position: Int, c: Char) {
         ruleOutLetterAtPosition(position, c)
 
-        seenLetters.add(c)
+        addSeenLetter(c)
     }
 
     fun greenLetter(position: Int, c: Char) {
         letterKnownAtPosition(position, c)
 
+        addSeenLetter(c)
+    }
+
+    private fun addSeenLetter(c: Char) {
         seenLetters.add(c)
+
+        if (seenLetters.size == 5) {
+            (ALL_LETTERS.minus(seenLetters)).forEach { letterToEliminate->
+                eliminateLetterAtAllPositions(letterToEliminate)
+            }
+        }
     }
 
     fun blackLetter(position: Int, c: Char) {
         if (c in seenLetters) {
             ruleOutLetterAtPosition(position, c)
         } else {
-            ruledOutLetters.add(c)
-            (0..4).forEach { p ->
-                ruleOutLetterAtPosition(p, c)
-            }
+            eliminateLetterAtAllPositions(c)
+        }
+    }
+
+    private fun eliminateLetterAtAllPositions(c: Char) {
+        ruledOutLetters.add(c)
+
+        (0..4).forEach { p ->
+            ruleOutLetterAtPosition(p, c)
         }
     }
 
@@ -61,3 +76,5 @@ class WordleCheater {
         allowedLettersAtPositions.put(position, allowedLettersAtPositions[position]!!.minus(c))
     }
 }
+
+val ALL_LETTERS = ('a'..'z').toList()
