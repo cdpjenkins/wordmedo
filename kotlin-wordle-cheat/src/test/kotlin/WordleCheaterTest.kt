@@ -44,4 +44,16 @@ class WordleCheaterTest {
             ('b'..'z').forEach { cheater.allowsLetterAtPosition(position, it) shouldBe true }
         }
     }
+
+    @Test
+    fun `black doesn't rule out a letter everywhere if that letter has already been seen and known to be present`() {
+        cheater.yellowLetter(0, 'a')
+        cheater.blackLetter(1, 'a')
+
+        cheater.allowsLetterAtPosition(0, 'a') shouldBe false
+        cheater.allowsLetterAtPosition(1, 'a') shouldBe false
+        cheater.allowsLetterAtPosition(2, 'a') shouldBe true
+        cheater.allowsLetterAtPosition(3, 'a') shouldBe true
+        cheater.allowsLetterAtPosition(4, 'a') shouldBe true
+    }
 }
