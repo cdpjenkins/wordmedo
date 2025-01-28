@@ -18,4 +18,8 @@ fun main(args: Array<String>) {
 
     val possibleWords = dictionaryWords.filter { cheater.matches(it) }
     println(possibleWords)
+
+    if (possibleWords.size > 1) {
+        println("Remaining possible letters ${cheater.remainingPossibleLetters()}")
+    }
 }

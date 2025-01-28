@@ -19,6 +19,10 @@ class WordleCheater {
         }
     }
 
+    fun remainingPossibleLetters(): List<Char> {
+        return allLetters - ruledOutLetters
+    }
+
     fun allowsLetterAtPosition(position: Int, letter: Char) =
         possibleLettersAt[position]?.contains(letter) ?: false
 
