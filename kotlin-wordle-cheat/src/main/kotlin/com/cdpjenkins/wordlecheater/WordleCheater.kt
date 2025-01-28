@@ -4,7 +4,7 @@ class WordleCheater {
     private val possibleLettersAt: MutableMap<Int, Set<Char>> =
         allPositions.associateWith { allLetters.toSet() }.toMutableMap()
 
-    private val seenLetters: MutableSet<Char> = HashSet()
+    val seenLetters: MutableSet<Char> = HashSet()
     val ruledOutLetters: MutableSet<Char> = HashSet()
 
     fun matches(word: String) = allPositions.all { pos -> allowsLetterAtPosition(pos, word[pos]) }

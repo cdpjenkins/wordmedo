@@ -17,9 +17,17 @@ fun main(args: Array<String>) {
     }
 
     val possibleWords = dictionaryWords.filter { cheater.matches(it) }
-    println(possibleWords)
+    println("possible words: $possibleWords")
 
     if (possibleWords.size > 1) {
-        println("Remaining possible letters ${cheater.remainingPossibleLetters()}")
+        if (cheater.seenLetters.size < 5) {
+            println("Remaining possible letters ${cheater.remainingPossibleLetters()}")
+
+            val wordsToFindMoreLetters =
+                dictionaryWords.sortedBy { (it.toSet() intersect cheater.remainingPossibleLetters().toSet()).size }
+                    .reversed()
+                    .take(10)
+            println("try these to find more letters: ${wordsToFindMoreLetters}")
+        }
     }
 }
