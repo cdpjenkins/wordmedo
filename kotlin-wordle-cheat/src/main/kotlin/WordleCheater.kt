@@ -1,80 +1,68 @@
 package com.cdpjenkins.wordlecheater
 
 class WordleCheater {
-    val allowedLettersAtPositions: MutableMap<Int, Set<Char>> =
-        (0..4).map { position ->
-            val allowedLetters = ('a'..'z').toList().toSet()
-
-            position to allowedLetters
-        }.toMap().toMutableMap()
+    private val possibileLettersAt: MutableMap<Int, Set<Char>> =
+        allPositions.associateWith { allLetters.toSet() }.toMutableMap()
 
     val seenLetters: MutableSet<Char> = HashSet()
     val ruledOutLetters: MutableSet<Char> = HashSet()
 
-    fun matches(word: String) =
-        (0..4).all { pos ->
-            allowsLetterAtPosition(pos, word[pos])
-        }
+    fun matches(word: String) = allPositions.all { pos -> allowsLetterAtPosition(pos, word[pos]) }
 
-    fun oneRound(guess: String, result: String) {
+    fun guess(guess: String, result: String) {
         (guess zip result).forEachIndexed { pos, (guessChar, resultChar) ->
             when (resultChar) {
-                'b' -> blackLetter(pos, guessChar)
-                'y' -> yellowLetter(pos, guessChar)
-                'g' -> greenLetter(pos, guessChar)
+                'b' -> blackResult(pos, guessChar)
+                'y' -> yellowResult(pos, guessChar)
+                'g' -> greenResult(pos, guessChar)
             }
         }
     }
 
-    fun allowsLetterAtPosition(position: Int, letter: Char): Boolean {
-        return allowedLettersAtPositions[position]?.contains(letter) ?: false
-    }
+    fun allowsLetterAtPosition(position: Int, letter: Char) =
+        possibileLettersAt[position]?.contains(letter) ?: false
 
-    fun yellowLetter(position: Int, c: Char) {
-        ruleOutLetterAtPosition(position, c)
-
+    fun yellowResult(position: Int, c: Char) {
+        eliminatePossibilityAtPosition(position, c)
         addSeenLetter(c)
     }
 
-    fun greenLetter(position: Int, c: Char) {
+    fun greenResult(position: Int, c: Char) {
         letterKnownAtPosition(position, c)
-
         addSeenLetter(c)
+    }
+
+    fun blackResult(position: Int, c: Char) {
+        if (c in seenLetters) {
+            eliminatePossibilityAtPosition(position, c)
+        } else {
+            eliminatPoissibilityAtAllPositions(c)
+        }
     }
 
     private fun addSeenLetter(c: Char) {
         seenLetters.add(c)
 
         if (seenLetters.size == 5) {
-            (ALL_LETTERS.minus(seenLetters)).forEach { letterToEliminate->
-                eliminateLetterAtAllPositions(letterToEliminate)
+            (allLetters.minus(seenLetters)).forEach { letterToEliminate->
+                eliminatPoissibilityAtAllPositions(letterToEliminate)
             }
         }
     }
 
-    fun blackLetter(position: Int, c: Char) {
-        if (c in seenLetters) {
-            ruleOutLetterAtPosition(position, c)
-        } else {
-            eliminateLetterAtAllPositions(c)
-        }
-    }
-
-    private fun eliminateLetterAtAllPositions(c: Char) {
+    private fun eliminatPoissibilityAtAllPositions(c: Char) {
         ruledOutLetters.add(c)
-
-        (0..4).forEach { p ->
-            ruleOutLetterAtPosition(p, c)
-        }
+        allPositions.forEach { p -> eliminatePossibilityAtPosition(p, c) }
     }
 
     private fun letterKnownAtPosition(position: Int, c: Char) {
-        allowedLettersAtPositions.put(position, setOf(c))
+        possibileLettersAt[position] = setOf(c)
     }
 
-    private fun ruleOutLetterAtPosition(position: Int, c: Char) {
-        allowedLettersAtPositions.put(position, allowedLettersAtPositions[position]!!.minus(c))
+    private fun eliminatePossibilityAtPosition(position: Int, c: Char) {
+        possibileLettersAt[position] = possibileLettersAt[position]!!.minus(c)
     }
 }
 
-val ALL_LETTERS = ('a'..'z').toList()
+val allPositions = 0..4
+val allLetters = ('a'..'z').toList()
