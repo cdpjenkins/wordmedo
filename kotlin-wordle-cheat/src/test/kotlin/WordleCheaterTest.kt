@@ -8,6 +8,21 @@ class WordleCheaterTest {
     val cheater = WordleCheater()
 
     @Test
+    fun `matches a word that we already know`() {
+        cheater.oneRound("abcde", "ggggg")
+
+        cheater.matches("abcde") shouldBe true
+    }
+
+    @Test
+    fun `matches a word we don't know`() {
+        cheater.oneRound("abcde", "yyyyy")
+
+        cheater.matches("bcdea") shouldBe true
+        cheater.matches("abcde") shouldBe false
+    }
+
+    @Test
     fun `initially allows all letters`() {
         (0..4).forEach { position ->
             allLetters().forEach { letter ->
