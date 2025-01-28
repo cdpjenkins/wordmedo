@@ -9,6 +9,7 @@ class WordleCheater {
         }.toMap().toMutableMap()
 
     val seenLetters: MutableSet<Char> = HashSet()
+    val ruledOutLetters: MutableSet<Char> = HashSet()
 
     fun allowsLetterAtPosition(position: Int, letter: Char): Boolean {
         return allowedLettersAtPositions[position]?.contains(letter) ?: false
@@ -30,6 +31,7 @@ class WordleCheater {
         if (c in seenLetters) {
             ruleOutLetterAtPosition(position, c)
         } else {
+            ruledOutLetters.add(c)
             (0..4).forEach { p ->
                 ruleOutLetterAtPosition(p, c)
             }
