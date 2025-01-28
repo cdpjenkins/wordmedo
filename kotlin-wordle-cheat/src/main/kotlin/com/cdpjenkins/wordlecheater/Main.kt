@@ -1,6 +1,5 @@
-package org.example
+package com.cdpjenkins.wordlecheater
 
-import com.cdpjenkins.wordlecheater.WordleCheater
 import java.io.File
 
 fun main(args: Array<String>) {

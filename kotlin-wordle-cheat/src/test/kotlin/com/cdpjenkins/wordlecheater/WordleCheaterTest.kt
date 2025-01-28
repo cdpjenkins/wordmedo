@@ -1,13 +1,10 @@
-import com.cdpjenkins.wordlecheater.allLetters
-import com.cdpjenkins.wordlecheater.allPositions
-import com.cdpjenkins.wordlecheater.WordleCheater
+package com.cdpjenkins.wordlecheater
+
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
 class WordleCheaterTest {
-    private fun allLetters() = ('a'..'z')
-
-    val cheater = WordleCheater()
+    private val cheater = WordleCheater()
 
     @Test
     fun `matches a word that we already know`() {
@@ -51,8 +48,6 @@ class WordleCheaterTest {
         allLettersExcept('a').forEach { cheater.allowsLetterAtPosition(0, it) shouldBe true }
     }
 
-    private fun allLettersExcept(c: Char) = allLetters().minus(c)
-
     @Test
     fun `green means rule out all other letters at position`() {
         cheater.greenResult(0, 'a')
@@ -83,5 +78,7 @@ class WordleCheaterTest {
         cheater.allowsLetterAtPosition(3, 'a') shouldBe true
         cheater.allowsLetterAtPosition(4, 'a') shouldBe true
     }
+
+    private fun allLettersExcept(@Suppress("SameParameterValue") c: Char) = allLetters.minus(c)
 }
 
