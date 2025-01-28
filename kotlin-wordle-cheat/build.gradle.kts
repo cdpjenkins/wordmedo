@@ -11,11 +11,19 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+
+    // JUnit 5
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+
+    // Kotest Assertions
+    testImplementation("io.kotest:kotest-assertions-core:5.7.2")
+
 }
 
 tasks.test {
     useJUnitPlatform()
 }
+
 kotlin {
     jvmToolchain(21)
 }
