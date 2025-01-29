@@ -7,7 +7,10 @@ class WordleCheater {
     val seenLetters: MutableSet<Char> = HashSet()
     val ruledOutLetters: MutableSet<Char> = HashSet()
 
-    fun matches(word: String) = allPositions.all { pos -> allowsLetterAtPosition(pos, word[pos]) }
+    fun matches(word: String) =
+        allPositions.all { pos -> allowsLetterAtPosition(pos, word[pos]) } &&
+                seenLetters.all { word.contains(it) }
+
 
     fun guess(guess: String, result: String) {
         (guess zip result).forEachIndexed { pos, (guessChar, resultChar) ->

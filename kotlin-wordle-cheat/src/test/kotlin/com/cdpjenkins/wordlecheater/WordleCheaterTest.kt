@@ -32,6 +32,14 @@ class WordleCheaterTest {
     }
 
     @Test
+    fun `only matches a word if it contains all the required yellow letters`() {
+        cheater.guess("xxxxe", "bbbby")
+
+        cheater.matches("fever") shouldBe true
+        cheater.matches("quack") shouldBe false // doesn't contain an e
+    }
+
+    @Test
     fun `initially allows all letters`() {
         allPositions.forEach { position ->
             allLetters.forEach { letter ->
