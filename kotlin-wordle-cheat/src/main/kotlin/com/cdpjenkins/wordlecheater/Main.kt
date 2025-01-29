@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
             val wordsToFindMoreLetters =
                 dictionaryWords.sortedBy { (it.toSet() intersect cheater.remainingPossibleLetters().toSet()).size }
                     .reversed()
-                    .take(10)
+                    .take(200)
             println("try these to find more letters: ${wordsToFindMoreLetters}")
         }
     }

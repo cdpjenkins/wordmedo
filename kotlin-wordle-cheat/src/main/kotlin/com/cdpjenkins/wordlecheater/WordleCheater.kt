@@ -20,7 +20,7 @@ class WordleCheater {
     }
 
     fun remainingPossibleLetters(): List<Char> {
-        return allLetters - ruledOutLetters
+        return allLetters - ruledOutLetters - seenLetters
     }
 
     fun allowsLetterAtPosition(position: Int, letter: Char) =
