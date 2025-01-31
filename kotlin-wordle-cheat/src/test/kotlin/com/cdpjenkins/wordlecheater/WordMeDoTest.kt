@@ -19,8 +19,14 @@ class WordMeDoTest {
         WordMeDo("toast").guess("batty") shouldBe "byyyb"
     }
 
-//    @Test
-//    fun `we only get as many yellows for a single char as there are instances of that char in the word`() {
-//        WordMeDo("toast").guess("choon") shouldBe "bbybb"
-//    }
+    @Test
+    fun `we only get as many yellows for a single char as there are instances of that char in the word`() {
+        WordMeDo("toast").guess("choon") shouldBe "bbybb"
+    }
+
+    @Test
+    fun `consuming a green letter appears to mean we get one less yellow as well`() {
+        WordMeDo("toast").guess("tatty") shouldBe "gyybb"
+        WordMeDo("toast").guess("poopy") shouldBe "bgbbb"
+    }
 }
