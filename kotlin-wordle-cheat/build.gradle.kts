@@ -7,7 +7,15 @@ application {
     mainClass.set("com.cdpjenkins.wordlecheater.MainKt")
 }
 
-group = "org.example"
+tasks.register("wordMeDo", JavaExec::class.java) {
+    description = "my task does something awesome"
+    classpath = sourceSets["main"].runtimeClasspath
+
+    mainClass.set("com.cdpjenkins.wordlecheater.WordMeDoKt")
+
+}
+
+group = "com.cdpjenkins"
 version = "1.0-SNAPSHOT"
 
 repositories {

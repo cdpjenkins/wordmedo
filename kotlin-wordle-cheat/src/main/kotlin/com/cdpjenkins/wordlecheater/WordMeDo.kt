@@ -1,5 +1,35 @@
 package com.cdpjenkins.wordlecheater
 
+fun main(args: Array<String>) {
+    println("WordMeDo!")
+    println()
+
+    val wordMeDo = WordMeDo("rivet")
+
+    val letters =
+        ('a'..'z').associateWith { 'b' }.toMutableMap()
+
+    letters['g'] = 'g'
+    letters['y'] = 'y'
+
+//    while (true) {
+    val RED = "\u001b[31m"
+    val GREEN = "\u001b[32m"
+    val YELLOW = "\u001b[33m"
+    val END = "\u001b[0m"
+
+    println("Hello ${RED} World!${END}")
+    letters.forEach { (c, u) ->
+        when (u) {
+            'b' -> print("$c")
+            'y' -> print("${YELLOW}$c${END}")
+            'g' -> print("${GREEN}$c${END}")
+        }
+    }
+
+//    }
+}
+
 class WordMeDo(val word: String) {
     fun guess(guess: String): String {
 
