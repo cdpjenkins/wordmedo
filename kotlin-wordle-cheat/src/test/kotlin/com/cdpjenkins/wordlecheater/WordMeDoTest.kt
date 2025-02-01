@@ -2,6 +2,8 @@ package com.cdpjenkins.wordlecheater
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 class WordMeDoTest {
     @Test
@@ -28,5 +30,19 @@ class WordMeDoTest {
     fun `consuming a green letter appears to mean we get one less yellow as well`() {
         WordMeDo("toast").guess("tatty") shouldBe "gyybb"
         WordMeDo("toast").guess("poopy") shouldBe "bgbbb"
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "heath,hight,gbbyy",
+        "heath,breem,bbybb",
+
+        "rivet,arise,byyby",
+        "rivet,mount,bbbbg",
+        "rivet,refit,gybyg",
+        "rivet,rivet,ggggg",
+    )
+    fun `lots of examples to hunt for bugs and corner cases`(word: String, guess: String, result: String) {
+        WordMeDo(word).guess(guess) shouldBe result
     }
 }
