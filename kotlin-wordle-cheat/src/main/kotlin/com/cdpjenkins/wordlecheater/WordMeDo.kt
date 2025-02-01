@@ -6,28 +6,51 @@ fun main(args: Array<String>) {
 
     val wordMeDo = WordMeDo("rivet")
 
-    val letters =
+    val seenLetters =
         ('a'..'z').associateWith { 'b' }.toMutableMap()
 
-    letters['g'] = 'g'
-    letters['y'] = 'y'
+    seenLetters['g'] = 'g'
+    seenLetters['y'] = 'y'
 
-//    while (true) {
-    val RED = "\u001b[31m"
-    val GREEN = "\u001b[32m"
-    val YELLOW = "\u001b[33m"
-    val END = "\u001b[0m"
+    while (true) {
 
-    println("Hello ${RED} World!${END}")
-    letters.forEach { (c, u) ->
-        when (u) {
-            'b' -> print("$c")
-            'y' -> print("${YELLOW}$c${END}")
-            'g' -> print("${GREEN}$c${END}")
+        print("> ")
+        val guess = readln()
+
+        val result = wordMeDo.guess(guess)
+
+
+        (guess zip result).forEach { (c, r) ->
+            when (r) {
+                'g' -> {
+                    seenLetters[c] = 'g'
+                    print("${BACKGROUND_GREEN}${c}${END}")
+                }
+                'y' -> {
+                    if (seenLetters[c] == 'b') seenLetters[c] = 'y'
+                    print("${BACKGROUND_YELLOW}${c}${END}")
+                }
+                else -> {
+                    print("$c")
+                }
+            }
         }
-    }
+        println()
 
-//    }
+        println(result)
+
+        val stons = seenLetters
+            .map { (c, u) ->
+                when (u) {
+                    'b' -> "$c"
+                    'y' -> "${BACKGROUND_YELLOW}${FOREGROUND_WHITE}$c${END}"
+                    'g' -> "${BACKGROUND_GREEN}${FOREGROUND_WHITE}$c${END}"
+                    else -> throw IllegalArgumentException("$u")
+                }
+            }
+            .joinToString(" ")
+        println(stons)
+    }
 }
 
 class WordMeDo(val word: String) {
@@ -55,3 +78,14 @@ class WordMeDo(val word: String) {
             }.joinToString("")
     }
 }
+
+val FOREGROUND_RED = "\u001b[31m"
+val FOREGROUND_GREEN = "\u001b[32m"
+val FOREGROUND_YELLOW = "\u001b[33m"
+val FOREGROUND_WHITE = "\u001b[37m"
+
+val BACKGROUND_RED = "\u001b[41m"
+val BACKGROUND_GREEN = "\u001b[42m"
+val BACKGROUND_YELLOW = "\u001b[43m"
+
+val END = "\u001b[0m"

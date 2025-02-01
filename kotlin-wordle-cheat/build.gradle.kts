@@ -13,6 +13,15 @@ tasks.register("wordMeDo", JavaExec::class.java) {
 
     mainClass.set("com.cdpjenkins.wordlecheater.WordMeDoKt")
 
+    standardInput = System.`in`
+
+}
+
+tasks.register("cheater", JavaExec::class.java) {
+    description = "my task does something awesome"
+    classpath = sourceSets["main"].runtimeClasspath
+
+    mainClass.set("com.cdpjenkins.wordlecheater.MainKt")
 }
 
 group = "com.cdpjenkins"
