@@ -42,6 +42,10 @@ class WordMeDoTest {
         "rivet,refit,gybyg",
         "rivet,rivet,ggggg",
         "rivet,tatty,ybbbb",
+
+        "chore,arise,bybbg",
+        "chore,fount,bybbb",
+        "chore,chore,ggggg",
     )
     fun `lots of examples to hunt for bugs and corner cases`(word: String, guess: String, result: String) {
         WordMeDo(word).guess(guess) shouldBe result
