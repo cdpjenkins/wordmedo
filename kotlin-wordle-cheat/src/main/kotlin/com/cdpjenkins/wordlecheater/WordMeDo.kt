@@ -9,16 +9,8 @@ fun main(args: Array<String>) {
     val seenLetters =
         ('a'..'z').associateWith { 'b' }.toMutableMap()
 
-    seenLetters['g'] = 'g'
-    seenLetters['y'] = 'y'
-
-    while (true) {
-
-        print("> ")
-        val guess = readln()
-
+    for (guess in args) {
         val result = wordMeDo.guess(guess)
-
 
         (guess zip result).forEach { (c, r) ->
             when (r) {
@@ -50,6 +42,10 @@ fun main(args: Array<String>) {
             }
             .joinToString(" ")
         println(stons)
+
+        if (result == "ggggg") {
+            println("Nice, you found the word: ${FOREGROUND_GREEN}${wordMeDo.word}${END}")
+        }
     }
 }
 
