@@ -46,6 +46,10 @@ class WordMeDoTest {
         "chore,arise,bybbg",
         "chore,fount,bybbb",
         "chore,chore,ggggg",
+
+        "revue,stone,bbbbg",
+        "revue,audio,bybbb",
+        "revue,flume,bbybg"
     )
     fun `lots of examples to hunt for bugs and corner cases`(word: String, guess: String, result: String) {
         WordMeDo(word).guess(guess) shouldBe result
