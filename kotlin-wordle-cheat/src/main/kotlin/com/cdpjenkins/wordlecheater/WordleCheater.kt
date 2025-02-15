@@ -9,10 +9,12 @@ class WordleCheater {
 
     fun matches(word: String) =
         allPositions.all { pos -> allowsLetterAtPosition(pos, word[pos]) } &&
-                seenLetters.all { word.contains(it) }
+            seenLetters.all { word.contains(it) }
 
-
-    fun guess(guess: String, result: String) {
+    fun guess(
+        guess: String,
+        result: String,
+    ) {
         (guess zip result).forEachIndexed { pos, (guessChar, resultChar) ->
             when (resultChar) {
                 'b' -> blackResult(pos, guessChar)
@@ -22,24 +24,33 @@ class WordleCheater {
         }
     }
 
-    fun remainingPossibleLetters(): List<Char> {
-        return allLetters - ruledOutLetters - seenLetters
-    }
+    fun remainingPossibleLetters(): List<Char> = allLetters - ruledOutLetters - seenLetters
 
-    fun allowsLetterAtPosition(position: Int, letter: Char) =
-        possibleLettersAt[position]?.contains(letter) ?: false
+    fun allowsLetterAtPosition(
+        position: Int,
+        letter: Char,
+    ) = possibleLettersAt[position]?.contains(letter) ?: false
 
-    fun yellowResult(position: Int, c: Char) {
+    fun yellowResult(
+        position: Int,
+        c: Char,
+    ) {
         eliminatePossibilityAtPosition(position, c)
         addSeenLetter(c)
     }
 
-    fun greenResult(position: Int, c: Char) {
+    fun greenResult(
+        position: Int,
+        c: Char,
+    ) {
         letterKnownAtPosition(position, c)
         addSeenLetter(c)
     }
 
-    fun blackResult(position: Int, c: Char) {
+    fun blackResult(
+        position: Int,
+        c: Char,
+    ) {
         if (c in seenLetters) {
             eliminatePossibilityAtPosition(position, c)
         } else {
@@ -51,7 +62,7 @@ class WordleCheater {
         seenLetters.add(c)
 
         if (seenLetters.size == 5) {
-            (allLetters.minus(seenLetters)).forEach { letterToEliminate->
+            (allLetters.minus(seenLetters)).forEach { letterToEliminate ->
                 eliminatePossibilityAtAllPositions(letterToEliminate)
             }
         }
@@ -62,11 +73,17 @@ class WordleCheater {
         allPositions.forEach { p -> eliminatePossibilityAtPosition(p, c) }
     }
 
-    private fun letterKnownAtPosition(position: Int, c: Char) {
+    private fun letterKnownAtPosition(
+        position: Int,
+        c: Char,
+    ) {
         possibleLettersAt[position] = setOf(c)
     }
 
-    private fun eliminatePossibilityAtPosition(position: Int, c: Char) {
+    private fun eliminatePossibilityAtPosition(
+        position: Int,
+        c: Char,
+    ) {
         possibleLettersAt[position] = possibleLettersAt[position]!!.minus(c)
     }
 }

@@ -6,8 +6,7 @@ fun main(args: Array<String>) {
 
     val wordMeDo = WordMeDo("rivet")
 
-    val seenLetters =
-        ('a'..'z').associateWith { 'b' }.toMutableMap()
+    val seenLetters = ('a'..'z').associateWith { 'b' }.toMutableMap()
 
     for (guess in args) {
         val result = wordMeDo.guess(guess)
@@ -16,11 +15,11 @@ fun main(args: Array<String>) {
             when (r) {
                 'g' -> {
                     seenLetters[c] = 'g'
-                    print("${BACKGROUND_GREEN}${c}${END}")
+                    print("${BACKGROUND_GREEN}${c}$END")
                 }
                 'y' -> {
                     if (seenLetters[c] == 'b') seenLetters[c] = 'y'
-                    print("${BACKGROUND_YELLOW}${c}${END}")
+                    print("${BACKGROUND_YELLOW}${c}$END")
                 }
                 else -> {
                     print("$c")
@@ -31,27 +30,28 @@ fun main(args: Array<String>) {
 
         println(result)
 
-        val stons = seenLetters
-            .map { (c, u) ->
-                when (u) {
-                    'b' -> "$c"
-                    'y' -> "${BACKGROUND_YELLOW}${FOREGROUND_WHITE}$c${END}"
-                    'g' -> "${BACKGROUND_GREEN}${FOREGROUND_WHITE}$c${END}"
-                    else -> throw IllegalArgumentException("$u")
-                }
-            }
-            .joinToString(" ")
+        val stons =
+            seenLetters
+                .map { (c, u) ->
+                    when (u) {
+                        'b' -> "$c"
+                        'y' -> "${BACKGROUND_YELLOW}${FOREGROUND_WHITE}$c$END"
+                        'g' -> "${BACKGROUND_GREEN}${FOREGROUND_WHITE}$c$END"
+                        else -> throw IllegalArgumentException("$u")
+                    }
+                }.joinToString(" ")
         println(stons)
 
         if (result == "ggggg") {
-            println("Nice, you found the word: ${FOREGROUND_GREEN}${wordMeDo.word}${END}")
+            println("Nice, you found the word: ${FOREGROUND_GREEN}${wordMeDo.word}$END")
         }
     }
 }
 
-class WordMeDo(val word: String) {
+class WordMeDo(
+    val word: String,
+) {
     fun guess(guess: String): String {
-
         val charsInWord = word.toList()
 
         val charsInWordMutable =
@@ -64,13 +64,13 @@ class WordMeDo(val word: String) {
 
         return (guess zip word)
             .map { (guessChar, wordChar) ->
-                if (guessChar == wordChar) 'g'.also {
-                    charsInWordMutable[guessChar] = charsInWordMutable.getValue(guessChar) - 1
+                if (guessChar == wordChar) {
+                    'g'.also { charsInWordMutable[guessChar] = charsInWordMutable.getValue(guessChar) - 1 }
+                } else if (charsInWordMutable.getValue(guessChar) > 0) {
+                    'y'.also { charsInWordMutable[guessChar] = charsInWordMutable.getValue(guessChar) - 1 }
+                } else {
+                    'b'
                 }
-                else if (charsInWordMutable.getValue(guessChar) > 0) 'y'.also {
-                    charsInWordMutable[guessChar] = charsInWordMutable.getValue(guessChar) - 1
-                }
-                else 'b'
             }.joinToString("")
     }
 }

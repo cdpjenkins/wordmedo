@@ -87,6 +87,7 @@ class WordleCheaterTest {
         cheater.allowsLetterAtPosition(4, 'a') shouldBe true
     }
 
-    private fun allLettersExcept(@Suppress("SameParameterValue") c: Char) = allLetters.minus(c)
+    private fun allLettersExcept(
+        @Suppress("SameParameterValue") c: Char,
+    ) = allLetters.minus(c)
 }
-

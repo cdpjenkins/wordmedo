@@ -17,33 +17,35 @@ fun main(args: Array<String>) {
     }
 
     val possibleWords = dictionaryWords.filter { cheater.matches(it) }
-//    println("possible words: $possibleWords")
+    // println("possible words: $possibleWords")
 
-    val freqs = ('a'..'z')
-        .associateWith { letter ->
+    val freqs =
+        ('a'..'z').associateWith { letter ->
             val letterFrequency = possibleWords.count { it.contains(letter) }
-//            println("$letter: $letterFrequency")
+            //            println("$letter: $letterFrequency")
             letterFrequency
         }
 
-    val someWords = possibleWords.map { w ->
-        w to w.toSet().map { freqs[it]!! }.sum()
-    }.sortedBy { it.second }
-        .reversed()
-        .take(15)
-        .reversed()
+    val someWords =
+        possibleWords
+            .map { w -> w to w.toSet().map { freqs[it]!! }.sum() }
+            .sortedBy { it.second }
+            .reversed()
+            .take(15)
+            .reversed()
 
     someWords.forEach { println(it) }
 
-//    if (possibleWords.size > 1) {
-//        if (cheater.seenLetters.size < 5) {
-//            println("Remaining possible letters ${cheater.remainingPossibleLetters()}")
-//
-//            val wordsToFindMoreLetters =
-//                dictionaryWords.sortedBy { (it.toSet() intersect cheater.remainingPossibleLetters().toSet()).size }
-//                    .reversed()
-//                    .take(200)
-//            println("try these to find more letters: ${wordsToFindMoreLetters}")
-//        }
-//    }
+    //    if (possibleWords.size > 1) {
+    //        if (cheater.seenLetters.size < 5) {
+    //            println("Remaining possible letters ${cheater.remainingPossibleLetters()}")
+    //
+    //            val wordsToFindMoreLetters =
+    //                dictionaryWords.sortedBy { (it.toSet() intersect
+    // cheater.remainingPossibleLetters().toSet()).size }
+    //                    .reversed()
+    //                    .take(200)
+    //            println("try these to find more letters: ${wordsToFindMoreLetters}")
+    //        }
+    //    }
 }

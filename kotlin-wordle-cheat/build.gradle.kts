@@ -1,6 +1,14 @@
 plugins {
     kotlin("jvm") version "2.0.20"
+    id("com.diffplug.spotless") version "7.0.2"
     application
+}
+
+spotless {
+    kotlin {
+        ktfmt()
+        ktlint()
+    }
 }
 
 application {
