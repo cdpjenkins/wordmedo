@@ -1,4 +1,4 @@
-# wordle-cheat
+# wordmedo
 
 Since I lost my Wordle streak the other day, I have decided that I need to
 cheat in order to get it back. This repo is intended to contain the ultimate
