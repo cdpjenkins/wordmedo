@@ -1,4 +1,4 @@
-package com.cdpjenkins.wordlecheater
+package com.cdpjenkins.wordmedocheater
 
 fun main(args: Array<String>) {
     println("WordMeDo!")

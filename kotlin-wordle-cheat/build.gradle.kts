@@ -12,14 +12,14 @@ spotless {
 }
 
 application {
-    mainClass.set("com.cdpjenkins.wordlecheater.MainKt")
+    mainClass.set("com.cdpjenkins.wordmedocheater.MainKt")
 }
 
 tasks.register("wordMeDo", JavaExec::class.java) {
     description = "my task does something awesome"
     classpath = sourceSets["main"].runtimeClasspath
 
-    mainClass.set("com.cdpjenkins.wordlecheater.WordMeDoKt")
+    mainClass.set("com.cdpjenkins.wordmedocheater.WordMeDoKt")
 
     standardInput = System.`in`
 
@@ -29,7 +29,7 @@ tasks.register("cheater", JavaExec::class.java) {
     description = "my task does something awesome"
     classpath = sourceSets["main"].runtimeClasspath
 
-    mainClass.set("com.cdpjenkins.wordlecheater.MainKt")
+    mainClass.set("com.cdpjenkins.wordmedocheater.MainKt")
 }
 
 group = "com.cdpjenkins"

@@ -1,4 +1,4 @@
-package com.cdpjenkins.wordlecheater
+package com.cdpjenkins.wordmedocheater
 
 import java.io.File
 

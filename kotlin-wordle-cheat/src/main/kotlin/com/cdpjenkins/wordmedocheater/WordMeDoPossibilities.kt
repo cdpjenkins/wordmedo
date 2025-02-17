@@ -1,4 +1,4 @@
-package com.cdpjenkins.wordlecheater
+package com.cdpjenkins.wordmedocheater
 
 class WordMeDoPossibilities {
     private val possibleLettersAt: MutableMap<Int, Set<Char>> =

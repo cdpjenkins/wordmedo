@@ -1,4 +1,4 @@
-package com.cdpjenkins.wordlecheater
+package com.cdpjenkins.wordmedocheater
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
