@@ -3,8 +3,8 @@ package com.cdpjenkins.wordlecheater
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-class WordleCheaterTest {
-    private val cheater = WordleCheater()
+class WordMeDoPossibilitiesTest {
+    private val cheater = WordMeDoPossibilities()
 
     @Test
     fun `matches a word that we already know`() {

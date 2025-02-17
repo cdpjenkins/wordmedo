@@ -1,6 +1,6 @@
 package com.cdpjenkins.wordlecheater
 
-class WordleCheater {
+class WordMeDoPossibilities {
     private val possibleLettersAt: MutableMap<Int, Set<Char>> =
         allPositions.associateWith { allLetters.toSet() }.toMutableMap()
 

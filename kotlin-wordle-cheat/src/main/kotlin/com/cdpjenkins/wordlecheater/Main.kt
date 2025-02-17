@@ -3,7 +3,7 @@ package com.cdpjenkins.wordlecheater
 import java.io.File
 
 fun main(args: Array<String>) {
-    val cheater = WordleCheater()
+    val cheater = WordMeDoPossibilities()
 
     val dictionaryWords = File("/usr/share/dict/words").readLines().filter { it.length == 5 }
 
